@@ -6,39 +6,48 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
   <!-- import jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
   <script src="index.js"></script>
 </head>
 
 <body>
-  <div id="game_grid">
-    <div class="card">
-      <img id="img1" class="front_face" src="001.jpeg" alt="">
-      <img class="back_face" src="back.webp" alt="">
+    <br>
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                <button id="easy_button" class="btn btn-primary blue-button">Easy</button>
+                <button id="medium_button" class="btn btn-primary blue-button">Medium</button>
+                <button id="hard_button" class="btn btn-primary blue-button">Hard</button>
+                </div>
+            </div>
+            <div id="game_stats" class="row">
+                <div class="col">
+                <p id="clicks">Clicks: 0</p>
+                <p id="pairs_left">Pairs left: 6</p>
+                <p id="pairs_matched">Pairs matched: 0</p>
+                <p id="total_pairs">Total pairs: 6</p>
+                <p id="game_timer">Time: 00:00</p>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col">
+                <div id="game_controls" class="text-center">
+                    <button id="start_button" class="btn btn-primary blue-button">Start</button>
+                    <button id="reset_button" class="btn btn-primary blue-button">Reset</button>
+                    <button id="dark_theme_button" class="btn btn-primary">Dark Theme</button>
+                </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="game_grid" class="container">
     </div>
-    <div class="card">
-      <img id="img2" class="front_face" src="002.jpeg" alt="">
-      <img class="back_face" src="back.webp" alt="">
-    </div>
-    <div class="card">
-      <img id="img3" class="front_face" src="003.jpeg" alt="">
-      <img class="back_face" src="back.webp" alt="">
-    </div>
-    <div class="card">
-      <img id="img4" class="front_face" src="001.jpeg" alt="">
-      <img class="back_face" src="back.webp" alt="">
-    </div>
-    <div class="card">
-      <img id="img5" class="front_face" src="002.jpeg" alt="">
-      <img class="back_face" src="back.webp" alt="">
-    </div>
-    <div class="card">
-      <img id="img6" class="front_face" src="003.png" alt="">
-      <img class="back_face" src="back.webp" alt="">
-    </div>
-  </div>
+    <div id="game_message"></div>
 </body>
 
 </html>
