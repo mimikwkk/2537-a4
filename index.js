@@ -95,7 +95,6 @@ let firstCard = undefined;
         let startTime = 0;
         let gameTimer = undefined;
         let timerStarted = false;
-        let powerUpTimeout = undefined;
 
         function startTimer() {
             startTime = new Date().getTime();
@@ -104,12 +103,6 @@ let firstCard = undefined;
               const minutes = Math.floor(totalSeconds / 60);
               const seconds = totalSeconds % 60;
               $("#game_timer").text(`Time: ${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`);
-        
-              if (powerUpTimeout && totalSeconds >= 10) {
-                clearInterval(powerUpTimeout);
-                powerUpTimeout = undefined;
-                flipAllCards();
-              }
             }, 1000);
         }
         
@@ -129,40 +122,43 @@ let firstCard = undefined;
             $("body").toggleClass("dark-theme");
         });
 
+        $("#power_up_button").click(function () {
+            flipAllCards();
+        });        
+
+        let currentDifficulty = 3;
+
         $("#easy_button").click(function () {
-            totalPairs = 3;
+            totalPairs = currentDifficulty = 3;
             $("#total_pairs").text("Total pairs: " + totalPairs);
             createGameGrid(6);
             $("#game_timer").text("Time: 00:00");
             stopTimer();
             timerStarted = false;
             $("#start_button").show();
+            $("#power_up_button").hide();
         });
     
         $("#medium_button").click(function () {
-            totalPairs = 6;
+            totalPairs = currentDifficulty = 6;
             $("#total_pairs").text("Total pairs: " + totalPairs);
             createGameGrid(12);
             $("#game_timer").text("Time: 00:00");
             stopTimer();
             timerStarted = false;
             $("#start_button").show();
-            if (!powerUpTimeout) {
-                powerUpTimeout = setTimeout(flipAllCards, 10000);
-            }
+            $("#power_up_button").show();
         });
     
         $("#hard_button").click(function () {
-            totalPairs = 12;
+            totalPairs = currentDifficulty = 12;
             $("#total_pairs").text("Total pairs: " + totalPairs);
             createGameGrid(24);
             $("#game_timer").text("Time: 00:00");
             stopTimer();
             timerStarted = false;
             $("#start_button").show();
-            if (!powerUpTimeout) {
-                powerUpTimeout = setTimeout(flipAllCards, 10000);
-            }
+            $("#power_up_button").show();
         });
 
         function createGameGrid(numCards) {
@@ -280,6 +276,7 @@ let firstCard = undefined;
             secondCard = undefined;
             clicks = 0;
             pairsMatched = 0;
+            totalPairs = currentDifficulty;
             pairsLeft = totalPairs;
             gameStart = false;
             stopTimer();
@@ -292,6 +289,7 @@ let firstCard = undefined;
             $("#start_button").hide(); // Show the start button
             $("#start_button").prop("disabled", false); // Enable the start button
             startTimer(); // Start the timer
+            $("#total_pairs").text("Total pairs: " + totalPairs);
         });
       
       

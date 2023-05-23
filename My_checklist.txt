@@ -12,7 +12,7 @@ Self-graded Assignment 4 Checklist
 [x]  Start and Reset buttons are added to the game.
 [x]  Difficulty levels are added to the game.
 [x]  Themes are added to the game.
-[]  Power-up logic is added to the game.
+[x]  Power-up logic is added to the game.
 
 /50 (Total grade out of 50, 2 marks each x first 4 items, 7 points each there after)
 

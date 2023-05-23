@@ -13,6 +13,10 @@ body {
     color: white;
 }
 
+#power_up_button {
+    background-color: red;
+}
+
 /* Dark Theme styles */
 body.dark-theme {
     background-color: black;
