@@ -2,7 +2,7 @@ let firstCard = undefined;
     let secondCard = undefined;
     let clicks = 0;
     let pairsMatched = 0;
-    const totalPairs = 3; // number of pairs
+    let totalPairs = 3; // number of pairs
     let pairsLeft = totalPairs; // number of pairs
     let gameStart = false;
     let startTime = undefined;
@@ -89,6 +89,7 @@ let firstCard = undefined;
     }
       
 
+
     $(document).ready(function () {
         let gameStart = false;
         let startTime = 0;
@@ -129,14 +130,18 @@ let firstCard = undefined;
         });
 
         $("#easy_button").click(function () {
+            totalPairs = 3;
+            $("#total_pairs").text("Total pairs: " + totalPairs);
             createGameGrid(6);
             $("#game_timer").text("Time: 00:00");
             stopTimer();
             timerStarted = false;
             $("#start_button").show();
         });
-
+    
         $("#medium_button").click(function () {
+            totalPairs = 6;
+            $("#total_pairs").text("Total pairs: " + totalPairs);
             createGameGrid(12);
             $("#game_timer").text("Time: 00:00");
             stopTimer();
@@ -146,8 +151,10 @@ let firstCard = undefined;
                 powerUpTimeout = setTimeout(flipAllCards, 10000);
             }
         });
-
+    
         $("#hard_button").click(function () {
+            totalPairs = 12;
+            $("#total_pairs").text("Total pairs: " + totalPairs);
             createGameGrid(24);
             $("#game_timer").text("Time: 00:00");
             stopTimer();
