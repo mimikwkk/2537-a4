@@ -2,13 +2,17 @@ let firstCard = undefined;
     let secondCard = undefined;
     let clicks = 0;
     let pairsMatched = 0;
-    let totalPairs = 3; // number of pairs
-    let pairsLeft = totalPairs; // number of pairs
+    let totalPairs = 3; 
     let gameStart = false;
     let startTime = undefined;
     let gameTimer = undefined;
-    let timerStarted = false; // Flag to track if the timer has started
+    let timerStarted = false; 
     let timerReset = false;
+    let processingPair = false;
+    let maxTimeEasy = 30;
+let maxTimeMedium = 60;
+let maxTimeHard = 120;
+let currentMaxTime = maxTimeEasy;
 
     function updateStats() {
       $("#clicks").text(`Clicks: ${clicks}`);
@@ -33,6 +37,11 @@ let firstCard = undefined;
     }
 
     function handleCardClick() {
+        // If the game is currently handling a pair of cards, return early and do nothing.
+        if (processingPair) {
+            return;
+        }
+
         if (!gameStart) {
             gameStart = true;
             if (!timerStarted) {
@@ -99,10 +108,15 @@ let firstCard = undefined;
         function startTimer() {
             startTime = new Date().getTime();
             gameTimer = setInterval(() => {
-              const totalSeconds = Math.floor((new Date().getTime() - startTime) / 1000);
-              const minutes = Math.floor(totalSeconds / 60);
-              const seconds = totalSeconds % 60;
-              $("#game_timer").text(`Time: ${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`);
+                const totalSeconds = Math.floor((new Date().getTime() - startTime) / 1000);
+                const minutes = Math.floor(totalSeconds / 60);
+                const seconds = totalSeconds % 60;
+                $("#game_timer").text(`Time: ${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`);
+                
+                if (totalSeconds >= currentMaxTime) {
+                    clearInterval(gameTimer);
+                    showModal("Time's up!", "You've run out of time!");
+                }
             }, 1000);
         }
         
@@ -128,9 +142,18 @@ let firstCard = undefined;
 
         let currentDifficulty = 3;
 
+        function updateMaxTimeDisplay() {
+            const minutes = Math.floor(currentMaxTime / 60);
+            const seconds = currentMaxTime % 60;
+            $("#max_time").text(`Max Time: ${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`);
+        }
+               
+
         $("#easy_button").click(function () {
             totalPairs = currentDifficulty = 3;
             $("#total_pairs").text("Total pairs: " + totalPairs);
+            currentMaxTime = maxTimeEasy;
+            updateMaxTimeDisplay();
             createGameGrid(6);
             $("#game_timer").text("Time: 00:00");
             stopTimer();
@@ -142,6 +165,8 @@ let firstCard = undefined;
         $("#medium_button").click(function () {
             totalPairs = currentDifficulty = 6;
             $("#total_pairs").text("Total pairs: " + totalPairs);
+            currentMaxTime = maxTimeMedium;
+            updateMaxTimeDisplay();
             createGameGrid(12);
             $("#game_timer").text("Time: 00:00");
             stopTimer();
@@ -153,6 +178,8 @@ let firstCard = undefined;
         $("#hard_button").click(function () {
             totalPairs = currentDifficulty = 12;
             $("#total_pairs").text("Total pairs: " + totalPairs);
+            currentMaxTime = maxTimeHard;
+            updateMaxTimeDisplay();
             createGameGrid(24);
             $("#game_timer").text("Time: 00:00");
             stopTimer();
