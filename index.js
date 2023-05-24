@@ -24,6 +24,7 @@ function updateStats() {
 }
 
 function startTimer() {
+    stopTimer(); 
     startTime = new Date().getTime();
     gameTimer = setInterval(() => {
         const totalSeconds = Math.floor((new Date().getTime() - startTime) / 1000);
@@ -36,6 +37,15 @@ function startTimer() {
 
 function stopTimer() {
     clearInterval(gameTimer);
+}
+
+function checkWinCondition() {
+    if (pairsMatched === totalPairs) {
+        stopTimer();
+        console.log("Success! Game over");
+        showModal("Congratulations!", "You've won the game!");
+        gameActive = false;
+    }
 }
 
 function handleCardClick() {
@@ -96,14 +106,7 @@ function handleCardClick() {
     
         clicks++;
         updateStats();
-
-    
-        if (pairsMatched === totalPairs) {
-            stopTimer();
-            console.log("Success! Game over");
-            showModal("Congratulations!", "You've won the game!");
-            stopTimer();
-        }
+        checkWinCondition();
     }
 }
     
@@ -115,7 +118,6 @@ function showModal(title, message) {
 $(document).ready(function () {
     let gameStart = false;
     let startTime = 0;
-    let gameTimer = undefined;
     let timerStarted = false;
 
     function startTimer() {
